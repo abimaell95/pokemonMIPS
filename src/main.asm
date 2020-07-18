@@ -5,7 +5,9 @@ pokemonNameLen: .space 432
 typeNameLen: .space 432		 ## 432 = 108 pokemon * 4bytes dirección de memoria en el buffer o 4bytes len del string
 randomNum: .word 0 #Número random entre 0-108
 firstOptionVal: .word 0
-SecondOptionVal: .word 0
+firstOptionNum: .word 0
+secondOptionVal: .word 0
+secondOptionNum: .word 0
 fileName: .asciiz "/pokeTypes.txt"
 fileWords: .space 1718 #Reserva 1714 bytes que es el número de bytes dentro del archivo
 welcomeMsg: .asciiz "Bienvenido al sistema de combates Pokémon:\n"
@@ -13,7 +15,9 @@ printSep: .asciiz ". "
 newLine: .asciiz "\n"
 lastOption: .asciiz "11. Salir\n"
 firstOptionMsg: .asciiz "Ingrese el número del primer Pokémon para el combate:\n"
-SecondOptionMsg: .asciiz "Ingrese el número del segundo Pokémon para el combate:\n"
+secondOptionMsg: .asciiz "Ingrese el número del segundo Pokémon para el combate:\n"
+versusMessage0: .asciiz "Combatientes: "
+versusMessage1: .asciiz " vs. "
 
 
 .text
@@ -130,7 +134,99 @@ la $a0, lastOption
 syscall
 promptPokemonUser:
 li $v0, 4
-la $a0, firstOptionMsg
+la $a0, firstOptionMsg ##Imprimo que requiero el primer pokemon
+syscall
+li $v0, 5
+syscall
+move $t1, $v0
+li $t0, 11
+
+beq $t1, $t0, end ##Si envia un 11 Se termina el programa.
+la $s1, randomNum
+lw $t0, ($s1)
+addi $t1,$t1,-1
+add $t1, $t1, $t0
+sll $t1, $t1, 2
+
+la $s1, pokemonList ##Obtenemos el la dirección de memoria del arreglo de pokemon
+add $t3, $t1, $s1
+lw $s1, ($t3)
+
+la $s0, firstOptionVal
+sw $s1 ($s0)  ##Guardamos la dirección de memoria del nombre de la primera opción
+la $s2, pokemonNameLen
+add $t3, $t1, $s2
+lw $s2, ($t3)
+la $s0, firstOptionNum
+sw $s2 ($s0)  ##Guardamos el len del nombre del pokemon
+
+
+li $v0, 4
+la $a0, secondOptionMsg ##Imprimo que requiero el segundo pokemon
+syscall
+li $v0, 5
+syscall
+move $t1, $v0
+li $t0, 11
+beq $t1, $t0, end ##Si envia un 11 Se termina el programa.
+
+la $s1, randomNum
+lw $t0, ($s1)
+addi $t1,$t1,-1
+add $t1, $t1, $t0
+sll $t1, $t1, 2
+
+la $s1, pokemonList ##Obtenemos el la dirección de memoria del arreglo de pokemon
+add $t3, $t1, $s1
+lw $s1, ($t3)
+
+la $s0, secondOptionVal
+sw $s1 ($s0)  ##Guardamos la dirección de memoria del nombre de la primera opción
+la $s2, pokemonNameLen
+add $t3, $t1, $s2
+lw $s2, ($t3)
+la $s0, secondOptionNum
+sw $s2 ($s0)  ##Guardamos el len del nombre del pokemon
+
+printVs0:
+li $v0, 4
+la $a0, versusMessage0
+syscall
+
+li $t4, 0 #contador de caracteres del pokemon
+la $s0, firstOptionVal
+lw  $s1, ($s0)
+la $s0, firstOptionNum
+lw  $s2, ($s0)
+printPkmnLoop:
+beq $t4, $s2, printVs1
+li $v0, 11 #Imprimir el nombre del pokemon
+lb $a0, ($s1)
+syscall
+addi $t4, $t4, 1
+addi $s1, $s1, 1
+j printPkmnLoop
+printVs1:
+li $v0, 4
+la $a0, versusMessage1
+syscall
+
+li $t4, 0 #contador de caracteres del pokemon
+la $s0, secondOptionVal
+lw  $s1, ($s0)
+la $s0, secondOptionNum
+lw  $s2, ($s0)
+printPLoop:
+beq $t4, $s2, end
+li $v0, 11 #Imprimir el nombre del pokemon
+lb $a0, ($s1)
+syscall
+addi $t4, $t4, 1
+addi $s1, $s1, 1
+j printPLoop
+
+end:
+li $v0 10
 syscall
 
 
