@@ -3,8 +3,17 @@ pokemonList: .space 432
 typeList: .space 432
 pokemonNameLen: .space 432
 typeNameLen: .space 432		 ## 432 = 108 pokemon * 4bytes dirección de memoria en el buffer o 4bytes len del string
+randomNum: .word 0 #Número random entre 0-108
+firstOptionVal: .word 0
+SecondOptionVal: .word 0
 fileName: .asciiz "/pokeTypes.txt"
 fileWords: .space 1718 #Reserva 1714 bytes que es el número de bytes dentro del archivo
+welcomeMsg: .asciiz "Bienvenido al sistema de combates Pokémon:\n"
+printSep: .asciiz ". "
+newLine: .asciiz "\n"
+lastOption: .asciiz "11. Salir\n"
+firstOptionMsg: .asciiz "Ingrese el número del primer Pokémon para el combate:\n"
+SecondOptionMsg: .asciiz "Ingrese el número del segundo Pokémon para el combate:\n"
 
 
 .text
@@ -65,5 +74,69 @@ isNull:
 la $s1, typeNameLen
 add $t2,$t0,$s1
 sw $t3, ($t2)
-j getRandom
 getRandom:
+li $v0, 42	#Le avisamos al sistema que nos retorne un numero random entre 0 y 98
+li $a1, 98
+syscall
+la $t0, randomNum
+sw $a0, ($t0) 	#Guardamos el número generado en la variable randomNum
+initGame:
+li $v0, 4
+la $a0, welcomeMsg
+syscall
+printPokemonList:
+la $t0, randomNum
+lw $s1, ($t0)
+li $t0, 10
+li $t1, 0 #Iterar los indices
+li $t2, 0 #Iterar el arreglo
+add $t2, $t2, $s1 #t2 = random
+sll $t2, $t2, 2 #random*4 = dirección de memoria
+printLoop:
+beq $t0, $t1, printLastOption
+li $v0, 1 #Imprimir el número del pokemon
+addi $t3, $t1,1
+move $a0, $t3
+syscall
+li $v0, 4 #Imprimir el separador
+la $a0, printSep
+syscall
+initPokemonData:
+li $t4, 0 #contador de caracteres del pokemon
+la $s1, pokemonList
+add $t3, $t2, $s1
+lw $t5, ($t3)
+la $s2, pokemonNameLen
+add $t3, $t2, $s2
+lw $t6, ($t3)
+printPokemonLoop:
+beq $t4, $t6, printNewLine
+li $v0, 11 #Imprimir el nombre del pokemon
+lb $a0, ($t5)
+syscall
+addi $t4, $t4, 1
+addi $t5, $t5, 1
+j printPokemonLoop
+printNewLine:
+li $v0, 4
+la $a0, newLine
+syscall
+addi $t1,$t1,1
+addi $t2,$t2,4
+j printLoop
+printLastOption:
+li $v0, 4
+la $a0, lastOption
+syscall
+promptPokemonUser:
+li $v0, 4
+la $a0, firstOptionMsg
+syscall
+
+
+
+
+
+
+
+
