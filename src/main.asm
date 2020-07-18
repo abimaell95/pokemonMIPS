@@ -9,7 +9,7 @@ firstOptionNum: .word 0
 secondOptionVal: .word 0
 secondOptionNum: .word 0
 fileName: .asciiz "/pokeTypes.txt"
-fileWords: .space 1718 #Reserva 1714 bytes que es el número de bytes dentro del archivo
+fileWords: .space 1718 #Reserva 1718 bytes que es el número de bytes dentro del archivo
 welcomeMsg: .asciiz "Bienvenido al sistema de combates Pokémon:\n"
 printSep: .asciiz ". "
 newLine: .asciiz "\n"
@@ -109,18 +109,11 @@ initPokemonData:
 li $t4, 0 #contador de caracteres del pokemon
 la $s1, pokemonList
 add $t3, $t2, $s1
-lw $t5, ($t3)
+lw $a0, ($t3)
 la $s2, pokemonNameLen
 add $t3, $t2, $s2
-lw $t6, ($t3)
-printPokemonLoop:
-beq $t4, $t6, printNewLine
-li $v0, 11 #Imprimir el nombre del pokemon
-lb $a0, ($t5)
-syscall
-addi $t4, $t4, 1
-addi $t5, $t5, 1
-j printPokemonLoop
+lw $a1, ($t3)
+jal printPokemon
 printNewLine:
 li $v0, 4
 la $a0, newLine
@@ -193,46 +186,29 @@ li $v0, 4
 la $a0, versusMessage0
 syscall
 
-li $t4, 0 #contador de caracteres del pokemon
 la $s0, firstOptionVal
-lw  $s1, ($s0)
+lw  $a0, ($s0)
 la $s0, firstOptionNum
-lw  $s2, ($s0)
-printPkmnLoop:
-beq $t4, $s2, printVs1
-li $v0, 11 #Imprimir el nombre del pokemon
-lb $a0, ($s1)
-syscall
-addi $t4, $t4, 1
-addi $s1, $s1, 1
-j printPkmnLoop
+lw  $a1, ($s0)
+jal printPokemon
+
 printVs1:
 li $v0, 4
 la $a0, versusMessage1
 syscall
 
-li $t4, 0 #contador de caracteres del pokemon
 la $s0, secondOptionVal
-lw  $s1, ($s0)
+lw  $a0, ($s0)
 la $s0, secondOptionNum
-lw  $s2, ($s0)
-printPLoop:
-beq $t4, $s2, end
-li $v0, 11 #Imprimir el nombre del pokemon
-lb $a0, ($s1)
-syscall
-addi $t4, $t4, 1
-addi $s1, $s1, 1
-j printPLoop
+lw  $a1, ($s0)
+jal printPokemon
 
 end:
 li $v0 10
 syscall
 
 
-
-
-
-
+##funciones importadas
+.include "printPokemon.asm"
 
 
