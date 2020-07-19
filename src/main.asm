@@ -9,6 +9,10 @@ firstOptionVal: .word 0
 firstOptionNum: .word 0
 secondOptionVal: .word 0
 secondOptionNum: .word 0
+firstOptionType: .word 0
+firstOptionTypeLen: .word 0
+secondOptionType: .word 0
+secondOptionTypeLen: .word 0
 types: .asciiz "normal fight flying poison ground rock bug ghost steel fire water grass electric psychic ice dragon dark fairy"
 fileName: .asciiz "/pokeTypes.txt"
 fileWords: .space 1718 #Reserva 1718 bytes que es el número de bytes dentro del archivo
@@ -146,14 +150,29 @@ sll $t1, $t1, 2
 la $s1, pokemonList ##Obtenemos el la dirección de memoria del arreglo de pokemon
 add $t3, $t1, $s1
 lw $s1, ($t3)
-
 la $s0, firstOptionVal
-sw $s1 ($s0)  ##Guardamos la dirección de memoria del nombre de la primera opción
+sw $s1, ($s0)  ##Guardamos la dirección de memoria del nombre de la primera opción
+
+
 la $s2, pokemonNameLen
 add $t3, $t1, $s2
 lw $s2, ($t3)
 la $s0, firstOptionNum
-sw $s2 ($s0)  ##Guardamos el len del nombre del pokemon
+sw $s2, ($s0)  ##Guardamos el len del nombre del pokemon
+
+
+la $s3, typeList ##Obtenemos el la dirección de memoria del arreglo de tipos
+add $t3, $t1, $s3
+lw $s3, ($t3)
+la $s0, firstOptionType
+sw $s3, ($s0)	##Guardamos al dirección de memoria del nombre del tipo del pokemon
+
+
+la $s4, typeNameLen 
+add $t3, $t1, $s4
+lw $s4, ($t3)
+la $s0, firstOptionTypeLen
+sw $s4, ($s0)  ##Guardamos el len del tipo del pokemon
 
 
 li $v0, 4
@@ -174,14 +193,29 @@ sll $t1, $t1, 2
 la $s1, pokemonList ##Obtenemos el la dirección de memoria del arreglo de pokemon
 add $t3, $t1, $s1
 lw $s1, ($t3)
-
 la $s0, secondOptionVal
 sw $s1 ($s0)  ##Guardamos la dirección de memoria del nombre de la primera opción
+
+
 la $s2, pokemonNameLen
 add $t3, $t1, $s2
 lw $s2, ($t3)
 la $s0, secondOptionNum
 sw $s2 ($s0)  ##Guardamos el len del nombre del pokemon
+
+
+la $s3, typeList
+add $t3, $t1, $s3
+lw $s3, ($t3)
+la $s0, secondOptionType
+sw $s3 ($s0)  ##Guardamos el nombre del tipo del pokemon
+
+
+la $s4, typeNameLen
+add $t3, $t1, $s4
+lw $s4, ($t3)
+la $s0, secondOptionTypeLen
+sw $s4 ($s0)  ##Guardamos el len del tipo del pokemon
 
 printVs0:
 li $v0, 4
@@ -205,12 +239,62 @@ la $s0, secondOptionNum
 lw  $a1, ($s0)
 jal printPokemon
 
+##Calcular datos de los pokemon
+	la $t0, firstOptionType
+	lw $a0, ($t0)
+	la $t1, firstOptionTypeLen
+	lw $a1, ($t1)
+	la $a2, types
+	jal indexType
+	move $s0, $v0 ##Fila
+	
+	la $t0, secondOptionType
+	lw $a0, ($t0)
+	la $t1, secondOptionTypeLen
+	lw $a1, ($t1)
+	la $a2, types
+	jal indexType
+	move $s1, $v0 ##Columna
+	
+	move $a0, $s0
+	move $a1, $s1
+	la $a2, matrix
+	jal getMatrixValue
+	move $s3, $v0
+	
+	move $a0, $s1
+	move $a1, $s0
+	la $a2, matrix
+	jal getMatrixValue
+	move $s4,$v0
+	
+	move $s0, $s3
+	move $s1, $s4 ##YA TENEMOS LOS MULT
+	
+	la $s2, firstOptionVal
+	lw  $t2, ($s2)
+	la $s2, firstOptionNum
+	lw  $a2, ($s2)
+	
+	la $s2, secondOptionVal
+	lw  $t3, ($s2)
+	la $s2, secondOptionNum
+	lw  $a3, ($s2)
+	
+	jal combatePokemon
+	
+	
+
+	
+	
+
 end:
 li $v0 10
 syscall
 
 
 ##funciones importadas
-.include "printPokemon.asm"
-
+.include "indexType.asm"
+.include "matrixValue.asm"
+.include "combate.asm"
 

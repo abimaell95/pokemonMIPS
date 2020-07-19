@@ -1,8 +1,6 @@
 .data
 	vida:		.asciiz ": Vida: "
 	ataque:		.asciiz " Ataque: "
-	p1:		.asciiz "Squirtle"
-	p2:		.asciiz "Charmander"
 	ataca:		.asciiz " ataca a "
 	resultado:	.asciiz "\nResultado del ataque: \n"
 	abrir:		.asciiz "\n\n¡"
@@ -11,23 +9,8 @@
 	tripleEnter:	.asciiz "\n\n\n"
 
 .text
-
-
-	
-	
-	la $a0,p1			#a0 Nombre p1
-	la $a1,p2			#a1 Nombre p2
-	
-	add $t2,$zero,$a0		#copia p1
-	add $t3,$zero,$a1		#copia p2
-	
-	li $a2,8			#len p1
-	li $a3,10			#len p2
-	
-	li $s0,2			#multiplicador p1
-	li $s1,3			#multiplicador p2
-	
-	
+.globl combatePokemon
+combatePokemon:
 	li $t0,5			#vida p1
 	li $t1,5			#vida p2
 	
