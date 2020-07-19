@@ -3,11 +3,13 @@ pokemonList: .space 432
 typeList: .space 432
 pokemonNameLen: .space 432
 typeNameLen: .space 432		 ## 432 = 108 pokemon * 4bytes dirección de memoria en el buffer o 4bytes len del string
+matrix: .word 1,1,1,1,1,3,1,0,3,1,1,1,1,1,1,1,1,1,2,1,3,3,1,2,3,0,2,1,1,1,1,3,2,1,2,3,1,2,1,1,1,3,2,1,3,1,1,2,3,1,1,1,1,1,1,1,1,3,3,3,1,3,0,1,1,2,1,1,1,1,1,2,1,1,0,2,1,2,3,1,2,2,1,3,2,1,1,1,1,1,1,3,2,1,3,1,2,1,3,2,1,1,1,1,2,1,1,1,1,3,3,3,1,1,1,3,3,3,1,2,1,2,1,1,2,3,0,1,1,1,1,1,1,2,1,1,1,1,1,2,1,1,3,1,1,1,1,1,1,2,1,1,3,3,3,1,3,1,2,1,1,2,1,1,1,1,1,3,2,1,2,3,3,2,1,1,2,3,1,1,1,1,1,1,2,2,1,1,1,2,3,3,1,1,1,3,1,1,1,1,3,3,2,2,3,1,3,3,2,3,1,1,1,3,1,1,1,1,2,1,0,1,1,1,1,1,2,3,3,1,1,3,1,1,1,2,1,2,1,1,1,1,3,1,1,1,1,3,1,1,0,1,1,1,2,1,2,1,1,1,3,3,3,2,1,1,3,2,1,1,1,1,1,1,1,1,1,1,3,1,1,1,1,1,1,2,1,0,1,3,1,1,1,1,1,2,1,1,1,1,1,2,1,1,3,3,1,2,1,3,1,1,1,1,3,3,1,1,1,1,1,2,2,1
 randomNum: .word 0 #Número random entre 0-108
 firstOptionVal: .word 0
 firstOptionNum: .word 0
 secondOptionVal: .word 0
 secondOptionNum: .word 0
+types: .asciiz "normal fight flying poison ground rock bug ghost steel fire water grass electric psychic ice dragon dark fairy"
 fileName: .asciiz "/pokeTypes.txt"
 fileWords: .space 1718 #Reserva 1718 bytes que es el número de bytes dentro del archivo
 welcomeMsg: .asciiz "Bienvenido al sistema de combates Pokémon:\n"

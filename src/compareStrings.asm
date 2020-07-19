@@ -8,7 +8,7 @@
 #------------------------------------------------------Funcion comparar strings ---------------------------------
 	
 compareStrings:
-	addi $sp,$sp,-20
+	addi $sp,$sp,-24
 	sw $a0,0($sp)
 	sw $a1,4($sp)
 	sw $t2,8($sp)
@@ -48,7 +48,7 @@ returnCompareString:
 	lw $t3,12($sp)
 	lw $ra,16($sp)
 	lw $a2,20($sp)
-	addi $sp,$sp,20
+	addi $sp,$sp,24
 	
 	jr $ra
 #-----------------------------------------------------------------
