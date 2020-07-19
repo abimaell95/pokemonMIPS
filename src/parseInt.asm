@@ -83,7 +83,7 @@ returnNumber:	lw   $a0, 0($sp)
 
 
 isArrayNumbers:
-	addi $sp, $sp,-28
+	addi $sp, $sp,-32
 	sw   $a0, 0($sp)	#Guarando a0
 	sw   $ra, 4($sp)	#Guardando punto de retorno
 	sw   $t0, 8($sp)
@@ -149,7 +149,7 @@ return: add $v0,$zero,$t4
 	lw   $t3, 20($sp)
 	lw   $t4, 24($sp)
 	sw   $t5, 28($sp)
-	addi $sp, $sp,28
+	addi $sp, $sp,32
 	
 	jr    $ra		#retorno
 #----------------------------------------------------------------------------------------------------
@@ -197,7 +197,7 @@ resultado:add   $v0,$zero,$t0	#resultado
 #Retrna 1 si el caracter enviado es salto de linea y 0 sino
 #-------------------------Funcion validar salto de linea---------------------------------------------------
 validarSaltoLinea:	
-	addi  $sp,$sp,-8
+	addi  $sp,$sp,-12
 	sw    $a0,0($sp)
 	sw    $ra,4($sp)
 	sw    $t0, 8($sp)
@@ -218,7 +218,7 @@ returnSalto:
 	lw    $a0,0($sp)
 	lw    $ra,4($sp)
 	lw    $t0, 8($sp)
-	addi  $sp,$sp,8
+	addi  $sp,$sp,12
 	jr    $ra
 	
 #---------------------------------------------------------------------------------------------------
