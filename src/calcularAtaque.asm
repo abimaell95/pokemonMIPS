@@ -5,7 +5,7 @@
 #Retorna el ataque total del pokemon, recibe en a0 el multiplicador
 #----------------------------------------------Funcion calcular Ataque-------------------------------------------------	
 calcularAtaque:
-	addi $sp,$sp,-8
+	addi $sp,$sp,-12
 	sw   $s0,0($sp)
 	sw   $s1,4($sp)
 	sw   $ra,8($sp)
@@ -28,7 +28,7 @@ returnAtaque:
 	lw   $s0,0($sp)
 	lw   $s1,4($sp)
 	lw   $ra,8($sp)
-	addi $sp,$sp,8
+	addi $sp,$sp,12
 	
 	jr $ra
 #--------------------------------------------------------------------------------------------------------------------	

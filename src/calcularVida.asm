@@ -6,7 +6,7 @@
 #-------------------------------------Calcular vida de p2------------------------------------------------------------
 	
 calcularVida:	
-	addi $sp,$sp,-4
+	addi $sp,$sp,-8
 	sw $t0,0($sp)
 	sw $ra,4($sp)
 	
@@ -24,7 +24,7 @@ lost:
 returnVida:
 	lw $t0,0($sp)
 	lw $ra,4($sp)
-	addi $sp,$sp,4
+	addi $sp,$sp,8
 	
 	jr $ra
 	

@@ -5,7 +5,7 @@
 #Retorna 0 si es un numero invalido y retorna el numero si es valido
 #-----------------------------Funcion para convetir un string a int---------------------------------------------------
 parseInt:
-	addi $sp, $sp,-24
+	addi $sp, $sp,-28
 	sw   $a0, 0($sp)	#Guarando a0
 	sw   $ra, 4($sp)	#Guardando punto de retorno
 	sw   $t1, 8($sp)
@@ -67,7 +67,7 @@ returnNumber:	lw   $a0, 0($sp)
 		lw   $t3, 16($sp)
 		lw   $t4, 20($sp)
 		lw   $t5, 24($sp)
-		addi $sp, $sp,24
+		addi $sp, $sp,28
 		
 		jr $ra	
 	
