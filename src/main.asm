@@ -16,14 +16,14 @@ secondOptionTypeLen: .word 0
 bufferOption1: .space 6
 bufferOption2: .space 6
 types: .asciiz "normal fight flying poison ground rock bug ghost steel fire water grass electric psychic ice dragon dark fairy"
-fileName: .asciiz "/pokeTypes.txt"
+fileName: .asciiz "./pokeTypes.txt"
 fileWords: .space 1718 #Reserva 1718 bytes que es el numero de bytes dentro del archivo
 welcomeMsg: .asciiz "Bienvenido al sistema de combates Pokemon:\n"
 printSep: .asciiz ". "
 newLine: .asciiz "\n"
 lastOption: .asciiz "11. Salir\n"
-firstOptionMsg: .asciiz "Ingrese el n�mero del primer Pok�mon para el combate:"
-secondOptionMsg: .asciiz "\nIngrese el n�mero del segundo Pok�mon para el combate:"
+firstOptionMsg: .asciiz "Ingrese el numero del primer Pokemon para el combate:"
+secondOptionMsg: .asciiz "\nIngrese el numero del segundo Pokemon para el combate:"
 versusMessage0: .asciiz "\nCombatientes: "
 versusMessage1: .asciiz " vs. "
 errorMessage: .asciiz "\nError, por favor ingrese un numero valido (1 al 11): "
@@ -324,4 +324,3 @@ syscall
 .include "matrixValue.asm"
 .include "parseInt.asm"
 .include "combate.asm"
-

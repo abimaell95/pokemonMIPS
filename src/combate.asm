@@ -3,7 +3,7 @@
 	ataque:		.asciiz " Ataque: "
 	ataca:		.asciiz " ataca a "
 	resultadoAtk:	.asciiz "\nResultado del ataque: \n"
-	abrir:		.asciiz "\n\nï¿½"
+	abrir:		.asciiz "\n\n¡"
 	ganador:	.asciiz " es el ganador!"
 	enter:		.asciiz "\n"
 	tripleEnter:	.asciiz "\n\n\n"

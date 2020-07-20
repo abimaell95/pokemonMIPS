@@ -1,4 +1,4 @@
-﻿Seviper,poison
+Seviper,poison
 Metagross,steel
 Pikachu,electric
 Mewtwo,psychic
