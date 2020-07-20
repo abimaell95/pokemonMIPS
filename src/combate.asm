@@ -3,13 +3,22 @@
 	ataque:		.asciiz " Ataque: "
 	ataca:		.asciiz " ataca a "
 	resultadoAtk:	.asciiz "\nResultado del ataque: \n"
-	abrir:		.asciiz "\n\n¡"
+	abrir:		.asciiz "\n\nï¿½"
 	ganador:	.asciiz " es el ganador!"
 	enter:		.asciiz "\n"
 	tripleEnter:	.asciiz "\n\n\n"
 
 .text
 .globl combatePokemon
+
+
+		#Realiza batalla entre dos pokemon hasta que uno de ellos se quede con vida 0
+#---------------------------------------------combatePokemon-----------------------------------------------------
+
+### ver otros archivos: "printPokemon.asm", "calcularVida.asm", "calcularAtaque.asm"
+
+
+
 combatePokemon:
 	li $t0,5			#vida p1
 	li $t1,5			#vida p2
@@ -33,7 +42,7 @@ pelear:
 	jal printPokemon
 		
 	li $v0,4
-	la $a0,vida			#imprime " :vida: "
+	la $a0,vida				#imprime " :vida: "
 	syscall
 	
 	
@@ -62,7 +71,7 @@ pelear:
 
 
 	li $v0,4
-	la $a0,vida			#imprime "vida: "
+	la $a0,vida				#imprime "vida: "
 	syscall
 		
 	li $v0,1
@@ -170,7 +179,7 @@ pelear:
 	
 Perdedor1:	
 	li $v0,4
-	la $a0,abrir			#imprime "¡"
+	la $a0,abrir			#imprime "ï¿½"
 	syscall
 	
 	add $a0,$zero,$t3
@@ -181,7 +190,7 @@ Perdedor1:
 	
 Perdedor2:
 	li $v0,4
-	la $a0,abrir			#imprime "¡"
+	la $a0,abrir			#imprime "ï¿½"
 	syscall
 	
 	add $a0,$zero,$t2
@@ -193,6 +202,9 @@ final:
 	la $a0,ganador			#imprime " es el ganador!"
 	syscall
 	j exit
+
+
+#--------------------------------------------------------------------------------------------------------------------------------------
 
 ##Funciones importadas
 .include "printPokemon.asm"

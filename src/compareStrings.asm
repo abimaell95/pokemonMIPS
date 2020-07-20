@@ -3,9 +3,14 @@
 .globl compareStrings
 
 
-#comparar strings retorna 1 si son iguales, 0 sino
-#a0 es el primer string,a1 es el segundo string y a2 el len del primer string
-#------------------------------------------------------Funcion comparar strings ---------------------------------
+#------------------------------------------------compareStrings-----------------------------------------------
+# Compara si dos string son iguales
+#-------------------------------------------------------------------------------------------------------------
+## $a0-> primer string
+## $a1-> segundo string
+## $a2-> tamaño del primer string
+## $v0<- retorna 1 si son iguales y retorna 0 en caso contrario
+#-------------------------------------------------------------------------------------------------------------
 	
 compareStrings:
 	addi $sp,$sp,-24
@@ -51,4 +56,4 @@ returnCompareString:
 	addi $sp,$sp,24
 	
 	jr $ra
-#-----------------------------------------------------------------
+#-------------------------------------------------------------------------------------------------------------

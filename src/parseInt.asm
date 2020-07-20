@@ -3,7 +3,14 @@
 
 
 #Retorna 0 si es un numero invalido y retorna el numero si es valido
-#-----------------------------Funcion para convetir un string a int---------------------------------------------------
+#-------------------------------------------------parseInt----------------------------------------------------
+# Convierte un string de dos caracteres en un número de 2 digitos entre el 1 y el 11 si fuera posible
+#-------------------------------------------------------------------------------------------------------------
+## v0<- retorna 0 si no es número válido o el número si este fuera válido
+#-------------------------------------------------------------------------------------------------------------
+### ver otras funciones: validarSaltoLinea,
+
+
 parseInt:
 	addi $sp, $sp,-28
 	sw   $a0, 0($sp)	#Guarando a0
@@ -77,10 +84,20 @@ returnNumber:	lw   $a0, 0($sp)
 #-----------------------------------------------------------------------------------------------------------
 				
 					
-#Retorna 1 si el string es de numero y 0 sino							
-#-----------------------------------Funcion que ve si un arreglo es de numeros------------------------------------------------------	
-	
 
+
+
+
+
+						
+#-----------------------------------isArrayNumbers-----------------------------------------------------------
+# Verifica si un string de compuesto por dos caracteres está compuesto sólo por dos número o un número
+# un salto de linea
+#-------------------------------------------------------------------------------------------------------------	
+## $a0-> string a Verificar
+## $v0<- retorna 1 si es un arreglo de número y 0 en caso contrario	
+#-------------------------------------------------------------------------------------------------------------
+### ver otras funciones: validarSaltoLinea, validateNumber
 
 isArrayNumbers:
 	addi $sp, $sp,-32
@@ -152,12 +169,19 @@ return: add $v0,$zero,$t4
 	addi $sp, $sp,32
 	
 	jr    $ra		#retorno
-#----------------------------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------------------------------------
 
 
 
-#Retorna 1 si el argumento es un numero y 0 sino
-#--------------------------------------------------------------------------------------------------
+
+
+
+#----------------------------------------validateNumber-------------------------------------------------------
+# verifica si un caracter es un número entre 0 y 9 considerando el código ascii del mismo
+#-------------------------------------------------------------------------------------------------------------
+## a0-> caracter a ser evaluado
+## v0<- retorna 1 si es un dígito y 0 sino
+#-------------------------------------------------------------------------------------------------------------
 	#Validar si un input es un número
 	
 validateNumber:
@@ -189,13 +213,23 @@ resultado:add   $v0,$zero,$t0	#resultado
     	
     	jr    $ra		#Punto de retorno 
 
-    	
-#----------------------------------------------------------------------------------------------------------    	
+#------------------------------------------------------------------------------------------------------------- 	
 
 
 
-#Retrna 1 si el caracter enviado es salto de linea y 0 sino
-#-------------------------Funcion validar salto de linea---------------------------------------------------
+
+
+
+
+
+#------------------------------------validarSaltoLinea-------------------------------------------------------
+# Verifica que el caracter recibido sea un salto de linea
+#-------------------------------------------------------------------------------------------------------------
+## $a0-> caracter a evaluar
+## $v0<- rtorna 1 si es un salto de linea y 0 en caso contrario
+#-------------------------------------------------------------------------------------------------------------
+
+
 validarSaltoLinea:	
 	addi  $sp,$sp,-12
 	sw    $a0,0($sp)
