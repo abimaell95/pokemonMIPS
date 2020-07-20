@@ -2,7 +2,7 @@
 	vida:		.asciiz ": Vida: "
 	ataque:		.asciiz " Ataque: "
 	ataca:		.asciiz " ataca a "
-	resultado:	.asciiz "\nResultado del ataque: \n"
+	resultadoAtk:	.asciiz "\nResultado del ataque: \n"
 	abrir:		.asciiz "\n\n¡"
 	ganador:	.asciiz " es el ganador!"
 	enter:		.asciiz "\n"
@@ -78,7 +78,7 @@ pelear:
 	syscall
 	
 	li $v0,4
-	la $a0,resultado			#imprime "\nResultado del ataque \n"
+	la $a0,resultadoAtk			#imprime "\nResultado del ataque \n"
 	syscall
 	
 	add $a0,$zero,$s2

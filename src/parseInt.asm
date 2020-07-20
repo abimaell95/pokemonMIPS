@@ -35,7 +35,7 @@ parseInt:
 	beq   $t1,$zero,addZero
 	slti  $t1,$t3,1			#t3<0 ? 1:0
 	bne   $t1,$zero,addZero
-	addi   $t5,$zero,1
+	add   $t5,$zero,$t3
 	j goodExit
 	
 addZero:	add $t5,$zero,$zero

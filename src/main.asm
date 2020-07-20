@@ -13,6 +13,8 @@ firstOptionType: .word 0
 firstOptionTypeLen: .word 0
 secondOptionType: .word 0
 secondOptionTypeLen: .word 0
+bufferOption1: .space 6
+bufferOption2: .space 6
 types: .asciiz "normal fight flying poison ground rock bug ghost steel fire water grass electric psychic ice dragon dark fairy"
 fileName: .asciiz "/pokeTypes.txt"
 fileWords: .space 1718 #Reserva 1718 bytes que es el número de bytes dentro del archivo
@@ -20,10 +22,11 @@ welcomeMsg: .asciiz "Bienvenido al sistema de combates Pokémon:\n"
 printSep: .asciiz ". "
 newLine: .asciiz "\n"
 lastOption: .asciiz "11. Salir\n"
-firstOptionMsg: .asciiz "Ingrese el número del primer Pokémon para el combate:\n"
-secondOptionMsg: .asciiz "Ingrese el número del segundo Pokémon para el combate:\n"
+firstOptionMsg: .asciiz "Ingrese el número del primer Pokémon para el combate:"
+secondOptionMsg: .asciiz "\nIngrese el número del segundo Pokémon para el combate:"
 versusMessage0: .asciiz "Combatientes: "
 versusMessage1: .asciiz " vs. "
+errorMessage: .asciiz "\nError, por favor ingrese un número válido (1 al 11): "
 
 
 .text
@@ -131,16 +134,28 @@ printLastOption:
 li $v0, 4
 la $a0, lastOption
 syscall
-promptPokemonUser:
+promptFirstPokemonUser:
 li $v0, 4
 la $a0, firstOptionMsg ##Imprimo que requiero el primer pokemon
 syscall
-li $v0, 5
+obtenerFirstInput:
+li $v0, 8
+la $a0, bufferOption1
+li $a1, 3
 syscall
+jal parseInt
+move $t8,$v0
+bne $v0, $zero, loadDataPokemon1
+#InputError
+li $v0, 4
+la $a0, errorMessage
+syscall
+j obtenerFirstInput
+loadDataPokemon1:
 move $t1, $v0
 li $t0, 11
-
 beq $t1, $t0, end ##Si envia un 11 Se termina el programa.
+
 la $s1, randomNum
 lw $t0, ($s1)
 addi $t1,$t1,-1
@@ -168,18 +183,31 @@ la $s0, firstOptionType
 sw $s3, ($s0)	##Guardamos al dirección de memoria del nombre del tipo del pokemon
 
 
-la $s4, typeNameLen 
+la $s4, typeNameLen
 add $t3, $t1, $s4
 lw $s4, ($t3)
 la $s0, firstOptionTypeLen
 sw $s4, ($s0)  ##Guardamos el len del tipo del pokemon
 
-
+promptSecondPokemonUser:
 li $v0, 4
 la $a0, secondOptionMsg ##Imprimo que requiero el segundo pokemon
 syscall
-li $v0, 5
+
+obtenerSecondInput:
+li $v0, 8
+la $a0, bufferOption2
+li $a1, 3
 syscall
+jal parseInt
+move $t9,$v0
+bne $v0, $zero, loadDataPokemon2
+#InputError
+li $v0, 4
+la $a0, errorMessage
+syscall
+j obtenerSecondInput
+loadDataPokemon2:
 move $t1, $v0
 li $t0, 11
 beq $t1, $t0, end ##Si envia un 11 Se termina el programa.
@@ -296,5 +324,6 @@ syscall
 ##funciones importadas
 .include "indexType.asm"
 .include "matrixValue.asm"
+.include "parseInt.asm"
 .include "combate.asm"
 
