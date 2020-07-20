@@ -24,7 +24,7 @@ newLine: .asciiz "\n"
 lastOption: .asciiz "11. Salir\n"
 firstOptionMsg: .asciiz "Ingrese el número del primer Pokémon para el combate:"
 secondOptionMsg: .asciiz "\nIngrese el número del segundo Pokémon para el combate:"
-versusMessage0: .asciiz "Combatientes: "
+versusMessage0: .asciiz "\nCombatientes: "
 versusMessage1: .asciiz " vs. "
 errorMessage: .asciiz "\nError, por favor ingrese un número válido (1 al 11): "
 
