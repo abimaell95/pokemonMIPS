@@ -1,3 +1,13 @@
+#-------------------printPokemon--------------------#
+#       Funcion que imprime al pokemon que
+#       se le pase como paramentro.
+#---------------------------------------------------#
+##
+# $a0-> Direccion de memoria del nombre del pokemon
+# $a1-> Len del nombre del pokemon
+##
+#---------------------------------------------------#
+
 .globl printPokemon
 printPokemon:
 addi $sp, $sp, -16
@@ -6,12 +16,12 @@ sw $t1, 4($sp)
 sw $t2, 8($sp)
 sw $ra, 12($sp)
 
-li $t0, 0 #contador de caracteres del pokemon
+li $t0, 0       #Contador de caracteres del pokemon
 move $t1, $a0
 move $t2, $a1
 loopPrint:
 beq $t0, $t2, endloop
-li $v0, 11 #Imprimir el nombre del pokemon
+li $v0, 11      
 lb $a0, ($t1)
 syscall
 addi $t0, $t0, 1

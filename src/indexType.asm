@@ -1,3 +1,15 @@
+#-------------------indexType-----------------------#
+#      Funcion que obtiene el indice del tipo
+#      en el arreglo de tipos.
+#---------------------------------------------------#
+##
+# $a0-> Direccion de memoria del tipo del pokemon
+# $a1-> Len del tipo del pokemon
+# $a2-> Arreglo de tipos
+# #v0 <-Indice del tipo en el arreglo
+##
+#---------------------------------------------------#
+
 .globl indexType
 indexType:
 addi $sp, $sp, -4
@@ -6,7 +18,7 @@ li $t3, 0 ##indice a retornar
 move $t0,$a0
 move $t1,$a1
 move $t2,$a2
-##Hacemos la comparación con cada uno de los tipos
+##Hacemos la comparacion con cada uno de los tipos
 move $a0, $t0
 move $a2, $t1
 #normal
